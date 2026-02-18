@@ -1,3 +1,6 @@
+export const revalidate = 60;
+
+
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/lib/sanity";
@@ -10,6 +13,7 @@ async function getPosts() {
       slug,
       publishedAt,
       categories,
+      excerpt,
       mainImage{
         asset->{
           url
