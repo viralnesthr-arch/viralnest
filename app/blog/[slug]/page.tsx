@@ -14,7 +14,7 @@ async function fetchPost(slug: string) {
   try {
     const post = await client.fetch(
       `
-      *[_type == "post" && slug.current == $slug][0]{
+      *[_type == "post" && slug.current match $slug][0]{
         _id,
         title,
         slug,
