@@ -1,15 +1,11 @@
 export const revalidate = 60;
 
-
-
 import { client } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-
-
 
 /* ================================
    FETCH POST FOR METADATA
@@ -31,12 +27,11 @@ export async function generateMetadata({
     { slug: params.slug }
   );
 
-  if (!post) return {};
+  if (!post || !post.title) return {};
 
   const description =
-    post.body?.[0]?.children?.[0]?.text
-      ? post.body[0].children[0].text.slice(0, 155)
-      : "Read this article on ViralNest.";
+    post.body?.[0]?.children?.[0]?.text?.slice(0, 155) ||
+    "Read this article on ViralNest.";
 
   const url = `https://viralnest.co.in/blog/${params.slug}`;
 
@@ -103,9 +98,9 @@ export default async function BlogDetailPage({
 }) {
   const post = await getPost(params.slug);
 
-  if (!post) return notFound();
+  if (!post || !post.title) return notFound();
 
-  /* ===== Reading Time Calculation ===== */
+  /* ===== Safe Reading Time Calculation ===== */
   const text =
     post.body
       ?.map((block: any) =>
@@ -113,7 +108,7 @@ export default async function BlogDetailPage({
       )
       .join(" ") || "";
 
-  const words = text.split(/\s+/).length;
+  const words = text.trim() ? text.split(/\s+/).length : 0;
   const readingTime = Math.max(1, Math.ceil(words / 200));
 
   const articleUrl = `https://viralnest.co.in/blog/${params.slug}`;
@@ -133,7 +128,7 @@ export default async function BlogDetailPage({
               "@type": "Person",
               name: post.author?.name || "ViralNest",
             },
-            image: post.mainImage?.asset?.url,
+            image: post.mainImage?.asset?.url || "",
             mainEntityOfPage: articleUrl,
           }),
         }}
@@ -198,7 +193,7 @@ export default async function BlogDetailPage({
                      prose-strong:text-white
                      prose-blockquote:border-purple-500"
         >
-          <PortableText value={post.body} />
+          {post.body && <PortableText value={post.body} />}
         </div>
       </section>
     </div>
