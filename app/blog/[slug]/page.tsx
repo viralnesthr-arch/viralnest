@@ -105,7 +105,10 @@ export default async function BlogDetailPage({
 
   const post = await fetchPost(params.slug);
 
-  if (!post || !post.title) return notFound();
+  if (!post) {
+  console.log("POST NOT FOUND");
+  return <div>Post not found</div>;
+}
 
   /* ===== SAFE READING TIME ===== */
 
