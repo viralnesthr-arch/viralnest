@@ -1,7 +1,5 @@
 export const revalidate = 60;
 
-export const dynamicParams = false; // ✅ VERY IMPORTANT
-
 
 
 import { client } from "@/lib/sanity";
