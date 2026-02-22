@@ -8,7 +8,31 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 /* ================================
-   FETCH POST FOR METADATA
+   SAFE FETCH FUNCTION
+================================ */
+
+async function fetchPost(slug: string) {
+  try {
+    return await client.fetch(
+      `*[_type == "post" && slug.current == $slug][0]{
+        title,
+        publishedAt,
+        body,
+        mainImage{
+          asset->{url}
+        },
+        author->{name}
+      }`,
+      { slug }
+    );
+  } catch (error) {
+    console.error("Sanity Fetch Error:", error);
+    return null;
+  }
+}
+
+/* ================================
+   METADATA
 ================================ */
 
 export async function generateMetadata({
@@ -16,22 +40,22 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const post = await client.fetch(
-    `*[_type == "post" && slug.current== $slug][0]{
-      title,
-      body,
-      mainImage{
-        asset->{url}
-      }
-    }`,
-    { slug: params.slug }
-  );
+  if (!params?.slug) return {};
+
+  const post = await fetchPost(params.slug);
 
   if (!post || !post.title) return {};
 
-  const description =
-    post.body?.[0]?.children?.[0]?.text?.slice(0, 155) ||
-    "Read this article on ViralNest.";
+  let description = "Read this article on ViralNest.";
+
+  if (Array.isArray(post.body) && post.body.length > 0) {
+    const firstBlock = post.body[0];
+    if (Array.isArray(firstBlock.children) && firstBlock.children.length > 0) {
+      description =
+        firstBlock.children[0]?.text?.slice(0, 155) ||
+        description;
+    }
+  }
 
   const url = `https://viralnest.co.in/blog/${params.slug}`;
 
@@ -69,26 +93,7 @@ export async function generateMetadata({
 }
 
 /* ================================
-   FETCH FULL POST
-================================ */
-
-async function getPost(slug: string) {
-  return await client.fetch(
-    `*[_type == "post" && slug.current == $slug][0]{
-      title,
-      publishedAt,
-      body,
-      mainImage{
-        asset->{url}
-      },
-      author->{name}
-    }`,
-    { slug }
-  );
-}
-
-/* ================================
-   BLOG DETAIL PAGE
+   BLOG PAGE
 ================================ */
 
 export default async function BlogDetailPage({
@@ -96,26 +101,35 @@ export default async function BlogDetailPage({
 }: {
   params: { slug: string };
 }) {
-  const post = await getPost(params.slug);
+  if (!params?.slug) return notFound();
+
+  const post = await fetchPost(params.slug);
 
   if (!post || !post.title) return notFound();
 
-  /* ===== Safe Reading Time Calculation ===== */
-  const text =
-    post.body
-      ?.map((block: any) =>
-        block.children?.map((child: any) => child.text).join(" ")
-      )
-      .join(" ") || "";
+  /* ===== SAFE READING TIME ===== */
 
-  const words = text.trim() ? text.split(/\s+/).length : 0;
+  let text = "";
+
+  if (Array.isArray(post.body)) {
+    text = post.body
+      .map((block: any) => {
+        if (!Array.isArray(block.children)) return "";
+        return block.children
+          .map((child: any) => child?.text || "")
+          .join(" ");
+      })
+      .join(" ");
+  }
+
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
   const readingTime = Math.max(1, Math.ceil(words / 200));
 
   const articleUrl = `https://viralnest.co.in/blog/${params.slug}`;
 
   return (
     <div className="bg-black text-white min-h-screen">
-      {/* JSON-LD ARTICLE SCHEMA */}
+      {/* JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -134,7 +148,7 @@ export default async function BlogDetailPage({
         }}
       />
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="relative py-24 px-6 bg-gradient-to-b from-purple-900/20 to-black">
         <div className="max-w-4xl mx-auto">
           <Link
@@ -168,7 +182,7 @@ export default async function BlogDetailPage({
         </div>
       </section>
 
-      {/* FEATURED IMAGE */}
+      {/* IMAGE */}
       {post.mainImage?.asset?.url && (
         <div className="max-w-5xl mx-auto px-6 -mt-10">
           <div className="relative w-full h-[450px]">
@@ -193,7 +207,9 @@ export default async function BlogDetailPage({
                      prose-strong:text-white
                      prose-blockquote:border-purple-500"
         >
-          {post.body && <PortableText value={post.body} />}
+          {Array.isArray(post.body) && (
+            <PortableText value={post.body} />
+          )}
         </div>
       </section>
     </div>
