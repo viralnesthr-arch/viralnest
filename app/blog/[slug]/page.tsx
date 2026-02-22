@@ -1,3 +1,4 @@
+export const revalidate = 60;
 
 export const dynamicParams = false; // ✅ VERY IMPORTANT
 
