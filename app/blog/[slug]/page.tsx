@@ -5,6 +5,7 @@ import { PortableText } from "@portabletext/react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 /* ================================
    FETCH POST
@@ -14,10 +15,10 @@ async function fetchPost(slug: string) {
   try {
     const post = await client.fetch(
       `
-      *[_type == "post" && slug.current match $slug][0]{
+      *[_type == "post" && slug.current == $slug][0]{
         _id,
         title,
-        slug,
+        "slug": slug.current,
         publishedAt,
         body,
         mainImage{
@@ -73,6 +74,9 @@ export async function generateMetadata({
       title: post.title,
       description,
       type: "article",
+      images: post?.mainImage?.asset?.url
+        ? [{ url: post.mainImage.asset.url }]
+        : [],
     },
     twitter: {
       card: "summary_large_image",
@@ -83,7 +87,7 @@ export async function generateMetadata({
 }
 
 /* ================================
-   BLOG PAGE
+   BLOG DETAIL PAGE
 ================================ */
 
 export default async function BlogDetailPage({
@@ -94,11 +98,7 @@ export default async function BlogDetailPage({
   const post = await fetchPost(params.slug);
 
   if (!post) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-white bg-black">
-        <h1 className="text-3xl font-bold">Post not found</h1>
-      </div>
-    );
+    notFound();
   }
 
   /* ================================
