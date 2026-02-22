@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     "Brand creative services"
   ],
   alternates: {
-    canonical: "https://www.viralnestmedia.com/services/content-creation",
+    canonical: "https://viralnest.co.in/services/content-creation",
   },
   openGraph: {
     title:
       "Content Creation Services | Viral Nest Media",
     description:
       "High-impact visual content including reels, short videos, graphic design and branded creatives for modern brands.",
-    url: "https://www.viralnestmedia.com/services/content-creation",
+    url: "https://viralnest.co.in/services/content-creation",
     siteName: "Viral Nest Media",
     type: "website",
   },
@@ -48,7 +48,7 @@ export default function ContentCreationPage() {
             provider: {
               "@type": "Organization",
               name: "Viral Nest Media",
-              url: "https://www.viralnestmedia.com",
+              url: "https://viralnest.co.in",
             },
             areaServed: [
               { "@type": "Country", name: "India" },

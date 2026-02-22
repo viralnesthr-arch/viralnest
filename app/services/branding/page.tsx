@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     "brand strategy Europe"
   ],
   alternates: {
-    canonical: "https://www.viralnestmedia.com/services/branding",
+    canonical: "https://viralnest.co.in/services/branding",
   },
   openGraph: {
     title: "Branding Agency | Brand Strategy & Identity Services",
     description:
       "Build a powerful brand identity and strategic growth roadmap with Viral Nest Media.",
-    url: "https://www.viralnestmedia.com/services/branding",
+    url: "https://viralnest.co.in/services/branding",
     siteName: "Viral Nest Media",
     type: "website",
   },
@@ -52,7 +52,7 @@ export default function BrandingPage() {
             provider: {
               "@type": "Organization",
               name: "Viral Nest Media",
-              url: "https://www.viralnestmedia.com",
+              url: "https://viralnest.co.in",
             },
             areaServed: [
               {

@@ -21,7 +21,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://viral-nest-website-structure.vercel.app"),
+  metadataBase: new URL("https://viralnest.co.in"),
 
   title: {
     default:
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 
   alternates: {
     canonical:
-      "https://viral-nest-website-structure.vercel.app",
+      "https://viralnest.co.in",
   },
 
   openGraph: {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
       "Digital Marketing & Branding Agency | Viral Nest Media",
     description:
       "Helping brands scale across Dubai, Europe & India with high-performance digital marketing & branding strategies.",
-    url: "https://viral-nest-website-structure.vercel.app",
+    url: "https://viralnest.co.in",
     siteName: "Viral Nest Media",
     images: [
       {
@@ -125,12 +125,12 @@ export default function RootLayout({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            "@id": "https://viral-nest-website-structure.vercel.app/#organization",
+            "@id": "https://viralnest.co.in/#organization",
             name: "Viral Nest Media",
-            url: "https://viral-nest-website-structure.vercel.app",
+            url: "https://viralnest.co.in",
             logo: {
               "@type": "ImageObject",
-              url: "https://viral-nest-website-structure.vercel.app/og-image.png"
+              url: "https://viralnest.co.in/og-image.png"
             },
             description:
               "Digital marketing and branding agency helping businesses grow across Dubai, Europe and India.",

@@ -1,10 +1,12 @@
+export const dynamic = "force-static";
+
 import { MetadataRoute } from "next"
 import { client } from "@/lib/sanity"
 
-export const revalidate = 60 // Revalidate every 60 seconds
+
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://viral-nest-website-structure.vercel.app"
+  const baseUrl = "https://viralnest.co.in"
 
   // Fetch blog posts from Sanity
   const posts = await client.fetch(`

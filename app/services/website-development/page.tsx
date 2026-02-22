@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     "Web development europe",
   ],
   alternates: {
-    canonical: "https://www.viralnestmedia.com/services/website-development",
+    canonical: "https://viralnest.co.in/services/website-development",
   },
   openGraph: {
     title: "Professional Website Development Services | Viral Nest Media",
     description:
       "Custom-built, SEO-friendly and high-performance websites for businesses worldwide.",
-    url: "https://www.viralnestmedia.com/services/website-development",
+    url: "https://viralnest.co.in/services/website-development",
     siteName: "Viral Nest Media",
     type: "website",
   },

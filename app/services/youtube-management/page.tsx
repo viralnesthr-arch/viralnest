@@ -15,13 +15,13 @@ export const metadata: Metadata = {
     "YouTube strategy"
   ],
   alternates: {
-    canonical: "https://www.viralnestmedia.com/services/youtube-management",
+    canonical: "https://viralnest.co.in/services/youtube-management",
   },
   openGraph: {
     title: "YouTube Management Services | Viral Nest Media",
     description:
       "Scale your YouTube channel with expert SEO, thumbnails, strategy and growth systems.",
-    url: "https://www.viralnestmedia.com/services/youtube-management",
+    url: "https://viralnest.co.in/services/youtube-management",
     siteName: "Viral Nest Media",
     type: "website",
   },

@@ -18,17 +18,17 @@ export const metadata: Metadata = {
     "Viral Nest Media Portfolio",
   ],
   alternates: {
-    canonical: "https://www.viralnestmedia.com/portfolio",
+    canonical: "https://viralnest.co.in/portfolio",
   },
   openGraph: {
     title: "Portfolio & Case Studies | Viral Nest Media",
     description:
       "Discover how Viral Nest Media delivers measurable growth through strategic digital marketing campaigns.",
-    url: "https://www.viralnestmedia.com/portfolio",
+    url: "https://viralnest.co.in/portfolio",
     siteName: "Viral Nest Media",
     images: [
       {
-        url: "https://www.viralnestmedia.com/og-portfolio.jpg",
+        url: "https://viralnest.co.in/og-portfolio.jpg",
         width: 1200,
         height: 630,
         alt: "Viral Nest Media Case Studies",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "Portfolio & Case Studies | Viral Nest Media",
     description:
       "Real digital marketing results across hospitality, real estate, fitness and luxury brands.",
-    images: ["https://www.viralnestmedia.com/og-portfolio.jpg"],
+    images: ["https://viralnest.co.in/og-portfolio.jpg"],
   },
   robots: {
     index: true,

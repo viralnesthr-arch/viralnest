@@ -1,9 +1,30 @@
+export const dynamic = "force-static";
+export const dynamicParams = false; // ✅ VERY IMPORTANT
+
+
+
 import { client } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+
+/* ================================
+   GENERATE STATIC PARAMS (REQUIRED FOR STATIC EXPORT)
+================================ */
+
+export async function generateStaticParams() {
+  const posts = await client.fetch(`
+    *[_type == "post" && defined(slug.current)]{
+      "slug": slug.current
+    }
+  `);
+
+  return posts.map((post: any) => ({
+    slug: post.slug,
+  }));
+}
 
 /* ================================
    FETCH POST FOR METADATA
@@ -32,7 +53,7 @@ export async function generateMetadata({
       ? post.body[0].children[0].text.slice(0, 155)
       : "Read this article on ViralNest.";
 
-  const url = `https://yourdomain.com/blog/${params.slug}`; // 🔁 replace domain
+  const url = `https://viralnest.co.in/blog/${params.slug}`;
 
   return {
     title: `${post.title} | ViralNest`,
@@ -99,7 +120,7 @@ export default async function BlogDetailPage({
 
   if (!post) return notFound();
 
-  /* ===== Reading Time Calculation (Improved) ===== */
+  /* ===== Reading Time Calculation ===== */
   const text =
     post.body
       ?.map((block: any) =>
@@ -110,11 +131,10 @@ export default async function BlogDetailPage({
   const words = text.split(/\s+/).length;
   const readingTime = Math.max(1, Math.ceil(words / 200));
 
-  const articleUrl = `https://yourdomain.com/blog/${params.slug}`; // 🔁 replace domain
+  const articleUrl = `https://viralnest.co.in/blog/${params.slug}`;
 
   return (
     <div className="bg-black text-white min-h-screen">
-
       {/* JSON-LD ARTICLE SCHEMA */}
       <script
         type="application/ld+json"
@@ -137,7 +157,6 @@ export default async function BlogDetailPage({
       {/* HERO SECTION */}
       <section className="relative py-24 px-6 bg-gradient-to-b from-purple-900/20 to-black">
         <div className="max-w-4xl mx-auto">
-
           <Link
             href="/blog"
             className="text-purple-400 hover:text-purple-300 text-sm mb-8 inline-block"
@@ -169,7 +188,7 @@ export default async function BlogDetailPage({
         </div>
       </section>
 
-      {/* FEATURED IMAGE (OPTIMIZED) */}
+      {/* FEATURED IMAGE */}
       {post.mainImage?.asset?.url && (
         <div className="max-w-5xl mx-auto px-6 -mt-10">
           <div className="relative w-full h-[450px]">

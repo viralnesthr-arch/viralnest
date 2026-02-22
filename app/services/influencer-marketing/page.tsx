@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     "Brand collaboration agency"
   ],
   alternates: {
-    canonical: "https://www.viralnestmedia.com/services/influencer-marketing",
+    canonical: "https://viralnest.co.in/services/influencer-marketing",
   },
   openGraph: {
     title:
       "Influencer Marketing Agency | Viral Nest Media",
     description:
       "We connect brands with high-impact creators to drive engagement, awareness and measurable ROI.",
-    url: "https://www.viralnestmedia.com/services/influencer-marketing",
+    url: "https://viralnest.co.in/services/influencer-marketing",
     siteName: "Viral Nest Media",
     type: "website",
   },

@@ -26,18 +26,18 @@ export const metadata: Metadata = {
     "Performance Marketing Services",
   ],
   alternates: {
-    canonical: "https://www.viralnestmedia.com/services",
+    canonical: "https://viralnest.co.in/services",
   },
   openGraph: {
     title:
       "Digital Marketing Services | Viral Nest Media",
     description:
       "Comprehensive digital marketing solutions including social media management, branding, influencer campaigns and website development.",
-    url: "https://www.viralnestmedia.com/services",
+    url: "https://viralnest.co.in/services",
     siteName: "Viral Nest Media",
     images: [
       {
-        url: "https://www.viralnestmedia.com/og-image.png",
+        url: "https://viralnest.co.in/og-image.png",
         width: 1200,
         height: 630,
         alt: "Viral Nest Media Digital Marketing Services",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "Digital Marketing Services | Viral Nest Media",
     description:
       "Explore our full suite of digital marketing services designed to scale modern brands.",
-    images: ["https://www.viralnestmedia.com/og-image.png"],
+    images: ["https://viralnest.co.in/og-image.png"],
   },
   robots: {
     index: true,
@@ -155,7 +155,7 @@ export default function ServicesPage() {
             provider: {
               "@type": "Organization",
               name: "Viral Nest Media",
-              url: "https://www.viralnestmedia.com",
+              url: "https://viralnest.co.in",
             },
             serviceType: "Digital Marketing Services",
             areaServed: ["Dubai", "India", "Europe"],

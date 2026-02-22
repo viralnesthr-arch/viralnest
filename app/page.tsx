@@ -23,18 +23,18 @@ export const metadata: Metadata = {
     "Viral Nest Media",
   ],
   alternates: {
-    canonical: "https://www.viralnestmedia.com",
+    canonical: "https://viralnest.co.in",
   },
   openGraph: {
     title:
       "Digital Marketing Agency in Dubai | Viral Nest Media",
     description:
       "We help brands scale with social media marketing, paid ads, branding, and performance strategies across Dubai, India, and Europe.",
-    url: "https://www.viralnestmedia.com",
+    url: "https://viralnest.co.in",
     siteName: "Viral Nest Media",
     images: [
       {
-        url: "https://www.viralnestmedia.com/og-image.png",
+        url: "https://viralnest.co.in/og-image.png",
         width: 1200,
         height: 630,
         alt: "Viral Nest Media Digital Marketing Agency",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     title: "Digital Marketing Agency in Dubai | Viral Nest Media",
     description:
       "Scale your brand with expert social media marketing, branding and performance campaigns.",
-    images: ["https://www.viralnestmedia.com/og-image.png"],
+    images: ["https://viralnest.co.in/og-image.png"],
   },
   robots: {
     index: true,
@@ -69,8 +69,8 @@ export default function HomePage() {
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Viral Nest Media",
-              url: "https://www.viralnestmedia.com",
-              logo: "https://www.viralnestmedia.com/viral-nest-logo.png",
+              url: "https://viralnest.co.in",
+              logo: "https://viralnest.co.in/viral-nest-logo.png",
               sameAs: [
                 "https://www.instagram.com/",
                 "https://www.linkedin.com/",
@@ -81,8 +81,8 @@ export default function HomePage() {
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               name: "Viral Nest Media",
-              image: "https://www.viralnestmedia.com/og-image.png",
-              url: "https://www.viralnestmedia.com",
+              image: "https://viralnest.co.in/og-image.png",
+              url: "https://viralnest.co.in",
               areaServed: ["Dubai", "India", "Europe"],
               description:
                 "Digital marketing agency specializing in social media marketing, branding and performance campaigns.",
