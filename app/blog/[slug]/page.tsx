@@ -17,7 +17,7 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const post = await client.fetch(
-    `*[_type == "post" && slug.current == $slug][0]{
+    `*[_type == "post" && slug.current== $slug][0]{
       title,
       body,
       mainImage{
