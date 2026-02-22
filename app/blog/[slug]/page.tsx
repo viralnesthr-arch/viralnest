@@ -13,9 +13,23 @@ import type { Metadata } from "next";
 async function fetchPost(slug: string) {
   try {
     const post = await client.fetch(
-      `*[_type == "post" && slug.current == $slug][0]`,
+      `
+      *[_type == "post" && slug.current == $slug][0]{
+        _id,
+        title,
+        slug,
+        publishedAt,
+        body,
+        mainImage{
+          asset->{
+            url
+          }
+        }
+      }
+      `,
       { slug }
     );
+
     return post;
   } catch (error) {
     console.error("Sanity Fetch Error:", error);
@@ -24,21 +38,20 @@ async function fetchPost(slug: string) {
 }
 
 /* ================================
-   METADATA
+   METADATA (SEO)
 ================================ */
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }): Promise<Metadata> {
-  const { slug } = await params;
-
-  const post = await fetchPost(slug);
+  const post = await fetchPost(params.slug);
 
   if (!post) {
     return {
       title: "Blog | ViralNest",
+      description: "Explore digital marketing insights on ViralNest.",
     };
   }
 
@@ -56,6 +69,16 @@ export async function generateMetadata({
   return {
     title: `${post.title} | ViralNest`,
     description,
+    openGraph: {
+      title: post.title,
+      description,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+    },
   };
 }
 
@@ -66,21 +89,21 @@ export async function generateMetadata({
 export default async function BlogDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
-  const { slug } = await params;
-
-  const post = await fetchPost(slug);
+  const post = await fetchPost(params.slug);
 
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center text-white bg-black">
-        <h1>Post not found</h1>
+        <h1 className="text-3xl font-bold">Post not found</h1>
       </div>
     );
   }
 
-  /* ===== READING TIME ===== */
+  /* ================================
+     READING TIME CALCULATION
+  ================================= */
 
   let text = "";
 
@@ -98,12 +121,17 @@ export default async function BlogDetailPage({
   const words = text.trim() ? text.trim().split(/\s+/).length : 0;
   const readingTime = Math.max(1, Math.ceil(words / 200));
 
+  /* ================================
+     UI
+  ================================= */
+
   return (
     <div className="bg-black text-white min-h-screen">
 
       {/* HERO */}
       <section className="relative py-24 px-6 bg-gradient-to-b from-purple-900/20 to-black">
         <div className="max-w-4xl mx-auto">
+
           <Link
             href="/blog"
             className="text-purple-400 hover:text-purple-300 text-sm mb-8 inline-block"
@@ -118,13 +146,23 @@ export default async function BlogDetailPage({
           </h1>
 
           <div className="flex flex-wrap gap-4 text-gray-400 text-sm">
+            {post?.publishedAt && (
+              <span>
+                {new Date(post.publishedAt).toLocaleDateString("en-IN", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            )}
             <span>{readingTime} min read</span>
           </div>
+
         </div>
       </section>
 
-      {/* IMAGE */}
-      {post.mainImage?.asset?.url && (
+      {/* FEATURED IMAGE */}
+      {post?.mainImage?.asset?.url && (
         <div className="max-w-5xl mx-auto px-6 -mt-10">
           <div className="relative w-full h-[450px]">
             <Image
@@ -153,6 +191,7 @@ export default async function BlogDetailPage({
           )}
         </div>
       </section>
+
     </div>
   );
 }
