@@ -11,11 +11,14 @@ import type { Metadata } from "next";
 ================================ */
 
 async function fetchPost(slug: string) {
+  if (!slug) return null;
+
   try {
     const post = await client.fetch(
       `*[_type == "post" && slug.current == $slug][0]`,
       { slug }
     );
+
     return post;
   } catch (error) {
     console.error("Sanity Fetch Error:", error);
@@ -30,14 +33,18 @@ async function fetchPost(slug: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { slug?: string };
 }): Promise<Metadata> {
-  const post = await fetchPost(params.slug);
+  const slug = params?.slug;
+
+  if (!slug) {
+    return { title: "Blog | ViralNest" };
+  }
+
+  const post = await fetchPost(slug);
 
   if (!post) {
-    return {
-      title: "Blog | ViralNest",
-    };
+    return { title: "Blog | ViralNest" };
   }
 
   let description = "Read this article on ViralNest.";
@@ -64,13 +71,23 @@ export async function generateMetadata({
 export default async function BlogDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: { slug?: string };
 }) {
-  const post = await fetchPost(params.slug);
+  const slug = params?.slug;
+
+  if (!slug) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        <h1>Invalid blog URL</h1>
+      </div>
+    );
+  }
+
+  const post = await fetchPost(slug);
 
   if (!post) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-white bg-black">
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
         <h1>Post not found</h1>
       </div>
     );
