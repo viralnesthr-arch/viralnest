@@ -2,29 +2,21 @@ export const dynamic = "force-dynamic";
 
 import { client } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
-import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 
 /* ================================
-   SAFE FETCH FUNCTION
+   FETCH POST
 ================================ */
 
 async function fetchPost(slug: string) {
   try {
-    return await client.fetch(
-      `*[_type == "post" && slug.current == $slug][0]{
-        title,
-        publishedAt,
-        body,
-        mainImage{
-          asset->{url}
-        },
-        author->{name}
-      }`,
+    const post = await client.fetch(
+      `*[_type == "post" && slug.current == $slug][0]`,
       { slug }
     );
+    return post;
   } catch (error) {
     console.error("Sanity Fetch Error:", error);
     return null;
@@ -40,11 +32,13 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  if (!params?.slug) return {};
-
   const post = await fetchPost(params.slug);
 
-  if (!post || !post.title) return {};
+  if (!post) {
+    return {
+      title: "Blog | ViralNest",
+    };
+  }
 
   let description = "Read this article on ViralNest.";
 
@@ -57,38 +51,9 @@ export async function generateMetadata({
     }
   }
 
-  const url = `https://viralnest.co.in/blog/${params.slug}`;
-
   return {
     title: `${post.title} | ViralNest`,
     description,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      title: post.title,
-      description,
-      url,
-      type: "article",
-      images: post.mainImage?.asset?.url
-        ? [
-            {
-              url: post.mainImage.asset.url,
-              width: 1200,
-              height: 630,
-              alt: post.title,
-            },
-          ]
-        : [],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description,
-      images: post.mainImage?.asset?.url
-        ? [post.mainImage.asset.url]
-        : [],
-    },
   };
 }
 
@@ -101,16 +66,17 @@ export default async function BlogDetailPage({
 }: {
   params: { slug: string };
 }) {
-  if (!params?.slug) return notFound();
-
   const post = await fetchPost(params.slug);
 
   if (!post) {
-  console.log("POST NOT FOUND");
-  return <div>Post not found</div>;
-}
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white bg-black">
+        <h1>Post not found</h1>
+      </div>
+    );
+  }
 
-  /* ===== SAFE READING TIME ===== */
+  /* ===== READING TIME ===== */
 
   let text = "";
 
@@ -128,28 +94,8 @@ export default async function BlogDetailPage({
   const words = text.trim() ? text.trim().split(/\s+/).length : 0;
   const readingTime = Math.max(1, Math.ceil(words / 200));
 
-  const articleUrl = `https://viralnest.co.in/blog/${params.slug}`;
-
   return (
     <div className="bg-black text-white min-h-screen">
-      {/* JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: post.title,
-            datePublished: post.publishedAt,
-            author: {
-              "@type": "Person",
-              name: post.author?.name || "ViralNest",
-            },
-            image: post.mainImage?.asset?.url || "",
-            mainEntityOfPage: articleUrl,
-          }),
-        }}
-      />
 
       {/* HERO */}
       <section className="relative py-24 px-6 bg-gradient-to-b from-purple-900/20 to-black">
@@ -168,18 +114,6 @@ export default async function BlogDetailPage({
           </h1>
 
           <div className="flex flex-wrap gap-4 text-gray-400 text-sm">
-            {post.author?.name && <span>By {post.author.name}</span>}
-
-            {post.publishedAt && (
-              <span>
-                {new Date(post.publishedAt).toLocaleDateString("en-IN", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
-            )}
-
             <span>{readingTime} min read</span>
           </div>
         </div>
