@@ -9,21 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 
-/* ================================
-   GENERATE STATIC PARAMS (REQUIRED FOR STATIC EXPORT)
-================================ */
 
-export async function generateStaticParams() {
-  const posts = await client.fetch(`
-    *[_type == "post" && defined(slug.current)]{
-      "slug": slug.current
-    }
-  `);
-
-  return posts.map((post: any) => ({
-    slug: post.slug,
-  }));
-}
 
 /* ================================
    FETCH POST FOR METADATA
