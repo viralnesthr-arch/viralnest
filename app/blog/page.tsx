@@ -1,13 +1,9 @@
+export const revalidate = 60;
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/lib/sanity";
-
-/* =========================
-   FORCE DYNAMIC (NO CACHE)
-========================= */
-
-export const dynamic = "force-dynamic";
 
 /* =========================
    SEO METADATA
@@ -18,13 +14,13 @@ export const metadata: Metadata = {
   description:
     "Explore expert insights on digital marketing, SEO, branding, and growth strategies to scale your business with ViralNest.",
   alternates: {
-    canonical: "https://yourdomain.com/blog", // 🔁 replace with real domain
+    canonical: "https://yourdomain.com/blog", // replace with real domain
   },
   openGraph: {
     title: "ViralNest Blog",
     description:
       "Insights, strategies, and growth tactics to scale your digital presence.",
-    url: "https://yourdomain.com/blog", // 🔁 replace with real domain
+    url: "https://yourdomain.com/blog",
     siteName: "ViralNest",
     images: [
       {
@@ -46,29 +42,34 @@ export const metadata: Metadata = {
 };
 
 /* =========================
-   FETCH POSTS
+   FETCH POSTS (SAFE QUERY)
 ========================= */
 
 async function getPosts() {
-  return await client.fetch(
-    `
-    *[_type == "post" && defined(slug.current)] 
-    | order(publishedAt desc){
-      _id,
-      title,
-      "slug": slug.current,
-      publishedAt,
-      excerpt,
-      categories[]->title,
-      mainImage{
-        asset->{
-          url
-        }
-      },
-      body
-    }
-  `
-  );
+  try {
+    const posts = await client.fetch(`
+      *[_type == "post" && defined(slug.current)] 
+      | order(publishedAt desc){
+        _id,
+        title,
+        slug,
+        publishedAt,
+        excerpt,
+        categories,
+        mainImage{
+          asset->{
+            url
+          }
+        },
+        body
+      }
+    `);
+
+    return posts || [];
+  } catch (error) {
+    console.error("Sanity fetch error:", error);
+    return [];
+  }
 }
 
 /* =========================
@@ -113,22 +114,22 @@ export default async function BlogPage() {
             {posts.map((post: any) => {
 
               const excerpt =
-                post.body?.[0]?.children?.[0]?.text
+                post?.body?.[0]?.children?.[0]?.text
                   ? post.body[0].children[0].text.slice(0, 140) + "..."
-                  : post.excerpt || "Read this article on ViralNest.";
+                  : post?.excerpt || "Read this article on ViralNest.";
 
               return (
                 <Link
                   key={post._id}
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post?.slug?.current}`}
                   className="group bg-[#111] rounded-2xl overflow-hidden border border-purple-900/30 hover:border-purple-500 transition duration-300 hover:-translate-y-2"
                 >
                   {/* Image */}
-                  {post.mainImage?.asset?.url && (
+                  {post?.mainImage?.asset?.url && (
                     <div className="relative h-56 w-full overflow-hidden">
                       <Image
                         src={post.mainImage.asset.url}
-                        alt={post.title}
+                        alt={post.title || "Blog image"}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover group-hover:scale-110 transition duration-500"
@@ -140,14 +141,16 @@ export default async function BlogPage() {
                   <div className="p-6">
 
                     {/* Categories */}
-                    {post.categories && (
+                    {Array.isArray(post?.categories) && (
                       <div className="flex flex-wrap gap-2 mb-3">
-                        {post.categories.map((cat: string, i: number) => (
+                        {post.categories.map((cat: any, i: number) => (
                           <span
                             key={i}
                             className="text-xs px-2 py-1 bg-purple-900/40 border border-purple-600 rounded-full text-purple-300"
                           >
-                            {cat}
+                            {typeof cat === "string"
+                              ? cat
+                              : cat?.title || ""}
                           </span>
                         ))}
                       </div>
@@ -155,7 +158,7 @@ export default async function BlogPage() {
 
                     {/* Title */}
                     <h2 className="text-xl font-semibold mb-3 group-hover:text-purple-400 transition">
-                      {post.title}
+                      {post?.title}
                     </h2>
 
                     {/* Excerpt */}
@@ -164,7 +167,7 @@ export default async function BlogPage() {
                     </p>
 
                     {/* Date */}
-                    {post.publishedAt && (
+                    {post?.publishedAt && (
                       <p className="text-xs text-gray-500">
                         {new Date(post.publishedAt).toLocaleDateString("en-IN", {
                           year: "numeric",
