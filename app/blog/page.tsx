@@ -5,54 +5,38 @@ import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/lib/sanity";
 
-/* =========================
-   SEO METADATA
-========================= */
-
 export const metadata: Metadata = {
-  title: "Blog | ViralNest",
+  title: "Blog | ViralNest Media",
   description:
-    "Explore expert insights on digital marketing, SEO, branding, and growth strategies to scale your business with ViralNest.",
+    "Explore expert insights on digital marketing, SEO, branding, and growth strategies to scale your business with ViralNest Media.",
   alternates: {
-    canonical: "https://yourdomain.com/blog", // replace with real domain
+    canonical: "https://viral-nest-website-structure.vercel.app/blog",
   },
   openGraph: {
-    title: "ViralNest Blog",
+    title: "Blog | ViralNest Media",
     description:
-      "Insights, strategies, and growth tactics to scale your digital presence.",
-    url: "https://yourdomain.com/blog",
-    siteName: "ViralNest",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "ViralNest Blog",
-      },
-    ],
+      "Expert digital marketing and branding insights from ViralNest Media.",
+    url: "https://viral-nest-website-structure.vercel.app/blog",
+    siteName: "ViralNest Media",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ViralNest Blog",
+    title: "Blog | ViralNest Media",
     description:
-      "Digital marketing insights and strategies from ViralNest.",
-    images: ["/og-image.png"],
+      "Expert digital marketing and branding insights from ViralNest Media.",
   },
 };
 
-/* =========================
-   FETCH POSTS (SAFE QUERY)
-========================= */
-
 async function getPosts() {
   try {
-    const posts = await client.fetch(`
+    const data = await client.fetch(`
       *[_type == "post" && defined(slug.current)] 
       | order(publishedAt desc){
         _id,
         title,
-        slug,
+        "slug": slug.current,
         publishedAt,
         excerpt,
         categories,
@@ -65,16 +49,12 @@ async function getPosts() {
       }
     `);
 
-    return posts || [];
+    return Array.isArray(data) ? data : [];
   } catch (error) {
-    console.error("Sanity fetch error:", error);
+    console.error("Sanity error:", error);
     return [];
   }
 }
-
-/* =========================
-   BLOG PAGE
-========================= */
 
 export default async function BlogPage() {
   const posts = await getPosts();
@@ -83,7 +63,6 @@ export default async function BlogPage() {
     <div className="bg-black text-white min-h-screen py-24 px-6">
       <div className="max-w-7xl mx-auto">
 
-        {/* Heading */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold">
             <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
@@ -95,23 +74,15 @@ export default async function BlogPage() {
           </p>
         </div>
 
-        {/* Blog Section */}
         {posts.length === 0 ? (
           <div className="text-center py-32">
-            <div className="inline-block px-6 py-3 rounded-full bg-purple-900/30 border border-purple-600 text-purple-300 text-sm">
-              Content Coming Soon
-            </div>
-            <h2 className="text-3xl font-bold mt-6">
-              No Blogs Yet 🚀
-            </h2>
-            <p className="text-gray-400 mt-4 max-w-xl mx-auto">
-              We’re preparing valuable insights to help you grow faster.
-              Check back soon for fresh updates from ViralNest.
-            </p>
+            <h2 className="text-3xl font-bold">No Blogs Yet 🚀</h2>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {posts.map((post: any) => {
+
+              if (!post?.slug) return null;
 
               const excerpt =
                 post?.body?.[0]?.children?.[0]?.text
@@ -121,10 +92,9 @@ export default async function BlogPage() {
               return (
                 <Link
                   key={post._id}
-                  href={`/blog/${post?.slug?.current}`}
+                  href={`/blog/${post.slug}`}
                   className="group bg-[#111] rounded-2xl overflow-hidden border border-purple-900/30 hover:border-purple-500 transition duration-300 hover:-translate-y-2"
                 >
-                  {/* Image */}
                   {post?.mainImage?.asset?.url && (
                     <div className="relative h-56 w-full overflow-hidden">
                       <Image
@@ -137,36 +107,15 @@ export default async function BlogPage() {
                     </div>
                   )}
 
-                  {/* Content */}
                   <div className="p-6">
-
-                    {/* Categories */}
-                    {Array.isArray(post?.categories) && (
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {post.categories.map((cat: any, i: number) => (
-                          <span
-                            key={i}
-                            className="text-xs px-2 py-1 bg-purple-900/40 border border-purple-600 rounded-full text-purple-300"
-                          >
-                            {typeof cat === "string"
-                              ? cat
-                              : cat?.title || ""}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Title */}
                     <h2 className="text-xl font-semibold mb-3 group-hover:text-purple-400 transition">
                       {post?.title}
                     </h2>
 
-                    {/* Excerpt */}
                     <p className="text-gray-400 text-sm mb-4">
                       {excerpt}
                     </p>
 
-                    {/* Date */}
                     {post?.publishedAt && (
                       <p className="text-xs text-gray-500">
                         {new Date(post.publishedAt).toLocaleDateString("en-IN", {
@@ -176,14 +125,12 @@ export default async function BlogPage() {
                         })}
                       </p>
                     )}
-
                   </div>
                 </Link>
               );
             })}
           </div>
         )}
-
       </div>
     </div>
   );
