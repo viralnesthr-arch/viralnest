@@ -1,9 +1,13 @@
-export const revalidate = 60;
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/lib/sanity";
+
+/* =========================
+   FORCE DYNAMIC (NO CACHE)
+========================= */
+
+export const dynamic = "force-dynamic";
 
 /* =========================
    SEO METADATA
@@ -24,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "ViralNest",
     images: [
       {
-        url: "/og-image.png", // Make sure this exists in /public
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "ViralNest Blog",
@@ -46,14 +50,16 @@ export const metadata: Metadata = {
 ========================= */
 
 async function getPosts() {
-  return await client.fetch(`
-    *[_type == "post"] | order(publishedAt desc){
+  return await client.fetch(
+    `
+    *[_type == "post" && defined(slug.current)] 
+    | order(publishedAt desc){
       _id,
       title,
-      slug,
+      "slug": slug.current,
       publishedAt,
-      categories,
       excerpt,
+      categories[]->title,
       mainImage{
         asset->{
           url
@@ -61,7 +67,8 @@ async function getPosts() {
       },
       body
     }
-  `);
+  `
+  );
 }
 
 /* =========================
@@ -113,7 +120,7 @@ export default async function BlogPage() {
               return (
                 <Link
                   key={post._id}
-                  href={`/blog/${post.slug.current}`}
+                  href={`/blog/${post.slug}`}
                   className="group bg-[#111] rounded-2xl overflow-hidden border border-purple-900/30 hover:border-purple-500 transition duration-300 hover:-translate-y-2"
                 >
                   {/* Image */}
@@ -125,7 +132,6 @@ export default async function BlogPage() {
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover group-hover:scale-110 transition duration-500"
-                        priority={false}
                       />
                     </div>
                   )}
