@@ -12,6 +12,8 @@ import { notFound } from "next/navigation";
 ================================ */
 
 async function fetchPost(slug: string) {
+  if (!slug) return null;
+
   return await client.fetch(
     `
     *[_type == "post" && slug.current == $slug][0]{
@@ -38,9 +40,11 @@ async function fetchPost(slug: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post = await fetchPost(params.slug);
+
+  const { slug } = await params;
+  const post = await fetchPost(slug);
 
   if (!post) {
     return {
@@ -84,9 +88,11 @@ export async function generateMetadata({
 export default async function BlogDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const post = await fetchPost(params.slug);
+
+  const { slug } = await params;
+  const post = await fetchPost(slug);
 
   if (!post) {
     notFound();
