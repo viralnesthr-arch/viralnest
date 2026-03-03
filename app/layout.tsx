@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   description:
     "Viral Nest Media helps brands in Dubai, Europe & India grow through 360° digital marketing, branding, influencer marketing and performance strategy.",
   keywords: [
-    "Digital Marketing Agency Dubai",
+    "Digital Marketing Agency",
     "Branding Agency India",
     "Social Media Marketing Europe",
     "Influencer Marketing Dubai",
