@@ -5,8 +5,8 @@ import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { GoogleTagManager } from "@next/third-parties/google"
-import { ThemeProvider } from "@/components/theme-provider" // <-- 1. IMPORT THE PROVIDER
-import { cn } from "@/lib/utils" // <-- Import 'cn' utility for clean class merging
+import { ThemeProvider } from "@/components/theme-provider"
+import { cn } from "@/lib/utils"
 
 import "./globals.css"
 
@@ -23,65 +23,69 @@ const fontDisplay = Playfair_Display({
   display: "swap",
 })
 
-// --- YOUR SEO METADATA IS UNTOUCHED ---
+/* =========================
+   ✅ SEO OPTIMIZED METADATA
+   ========================= */
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://viralnest.co.in"),
+
   title: {
     default:
-      "Digital Marketing & Branding Agency | Viral Nest Media",
+      "Digital Marketing & Branding Agency in Dubai, Europe & India | Viral Nest Media",
     template: "%s | Viral Nest Media",
   },
+
   description:
-    "Viral Nest Media helps brands in Dubai, Europe & India grow through 360° digital marketing, branding, influencer marketing and performance strategy.",
+    "Viral Nest Media is a full-service digital marketing and branding agency helping businesses grow across Dubai, Europe and India through strategic marketing, social media management, influencer campaigns and performance-driven solutions.",
+
   keywords: [
-    "Digital Marketing Agency",
-    "Branding Agency India",
-    "Social Media Marketing Europe",
-    "Influencer Marketing Dubai",
-    "SEO Agency India",
-    "Performance Marketing UAE",
-    "best digital marketing agency",
-    "top branding agency",
-    "social media experts",
-    "influencer marketing services",
-    "SEO specialists",
-    "performance marketing strategies",
-    "digital marketing company",
-    "digital marketing agency",
+    "digital marketing agency Dubai",
+    "branding agency Dubai",
+    "digital marketing agency India",
+    "branding agency Europe",
+    "social media marketing company",
+    "influencer marketing agency",
+    "performance marketing services",
+    "creative branding agency"
   ],
+
   authors: [{ name: "Viral Nest Media" }],
   creator: "Viral Nest Media",
   publisher: "Viral Nest Media",
+
   alternates: {
-    canonical:
-      "https://viralnest.co.in",
+    canonical: "https://viralnest.co.in",
   },
+
   openGraph: {
     title:
-      "Digital Marketing & Branding Agency | Viral Nest Media",
+      "Digital Marketing & Branding Agency in Dubai, Europe & India | Viral Nest Media",
     description:
-      "Helping brands scale across Dubai, Europe & India with high-performance digital marketing & branding strategies.",
+      "Helping brands scale across Dubai, Europe and India with strategic digital marketing, branding and performance campaigns.",
     url: "https://viralnest.co.in",
     siteName: "Viral Nest Media",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://viralnest.co.in/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Viral Nest Media - Digital Marketing Agency",
+        alt: "Viral Nest Media - Digital Marketing & Branding Agency",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title:
       "Digital Marketing & Branding Agency | Viral Nest Media",
     description:
-      "Helping brands grow across Dubai, Europe & India with powerful digital marketing.",
-    images: ["/og-image.png"],
+      "Full-service digital marketing and branding agency serving Dubai, Europe and India.",
+    images: ["https://viralnest.co.in/og-image.png"],
   },
+
   robots: {
     index: true,
     follow: true,
@@ -93,6 +97,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+
+  category: "Digital Marketing",
+
   verification: {
     google: "ADD_GOOGLE_VERIFICATION_CODE",
     other: {
@@ -100,11 +107,14 @@ export const metadata: Metadata = {
     },
   },
 }
+
 export const viewport: Viewport = {
   themeColor: "#000000",
 }
-// --- END OF UNTOUCHED SEO METADATA ---
 
+/* =========================
+   ✅ ROOT LAYOUT
+   ========================= */
 
 export default function RootLayout({
   children,
@@ -117,8 +127,10 @@ export default function RootLayout({
       className={`${jakartaSans.variable} ${fontDisplay.variable}`}
       suppressHydrationWarning
     >
-      {/* Your Google Tag Manager and Schema scripts are untouched */}
+      {/* ✅ Google Tag Manager (UNTOUCHED) */}
       <GoogleTagManager gtmId="GTM-WT8GFP5C" />
+
+      {/* ✅ Structured Data (Enhanced for SEO) */}
       <Script
         id="schema-org"
         type="application/ld+json"
@@ -130,19 +142,34 @@ export default function RootLayout({
             "@id": "https://viralnest.co.in/#organization",
             name: "Viral Nest Media",
             url: "https://viralnest.co.in",
-            logo: { "@type": "ImageObject", url: "https://viralnest.co.in/og-image.png" },
-            description: "Digital marketing and branding agency helping businesses grow across Dubai, Europe and India.",
-            sameAs: ["https://www.instagram.com/yourprofile", "https://www.linkedin.com/company/yourcompany"]
+            logo: {
+              "@type": "ImageObject",
+              url: "https://viralnest.co.in/og-image.png",
+            },
+            description:
+              "Digital marketing and branding agency helping businesses grow across Dubai, Europe and India.",
+            areaServed: [
+              { "@type": "Place", name: "Dubai" },
+              { "@type": "Place", name: "India" },
+              { "@type": "Place", name: "Europe" }
+            ],
+            sameAs: [
+              "https://www.instagram.com/yourprofile",
+              "https://www.linkedin.com/company/yourcompany"
+            ]
           }),
         }}
       />
 
       <body
-        // Using 'cn' utility for better class management
-        className={cn("font-sans antialiased", jakartaSans.variable, fontDisplay.variable)}
+        className={cn(
+          "font-sans antialiased",
+          jakartaSans.variable,
+          fontDisplay.variable
+        )}
         suppressHydrationWarning
       >
-        {/* 2. WRAP YOUR APP WITH THE THEMEPROVIDER */}
+        {/* ✅ Theme Provider (UNTOUCHED) */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
