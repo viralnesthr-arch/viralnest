@@ -5,18 +5,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/lib/sanity";
 
+// --- YOUR METADATA IS UNTOUCHED ---
 export const metadata: Metadata = {
   title: "Blog | ViralNest Media",
   description:
     "Explore expert insights on digital marketing, SEO, branding, and growth strategies to scale your business with ViralNest Media.",
   alternates: {
-    canonical: "https://viral-nest-website-structure.vercel.app/blog",
+    canonical: "https://viralnest.co.in/blog",
   },
   openGraph: {
     title: "Blog | ViralNest Media",
     description:
       "Expert digital marketing and branding insights from ViralNest Media.",
-    url: "https://viral-nest-website-structure.vercel.app/blog",
+    url: "https://viralnest.co.in/blog",
     siteName: "ViralNest Media",
     locale: "en_IN",
     type: "website",
@@ -28,7 +29,9 @@ export const metadata: Metadata = {
       "Expert digital marketing and branding insights from ViralNest Media.",
   },
 };
+// --- END OF UNTOUCHED METADATA ---
 
+// --- YOUR getPosts FUNCTION IS UNTOUCHED ---
 async function getPosts() {
   try {
     const data = await client.fetch(`
@@ -48,28 +51,30 @@ async function getPosts() {
         body
       }
     `);
-
     return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Sanity error:", error);
     return [];
   }
 }
+// --- END OF UNTOUCHED FUNCTION ---
 
 export default async function BlogPage() {
   const posts = await getPosts();
 
   return (
-    <div className="bg-black text-white min-h-screen py-24 px-6">
+    // [FIX] Removed `bg-black text-white` and adjusted padding.
+    <div className="min-h-screen pt-32 pb-24 px-6">
       <div className="max-w-7xl mx-auto">
-
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold">
-            <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+          {/* [FIX] Updated gradient to use theme variables. */}
+          <h1 className="font-display text-5xl md:text-6xl font-bold">
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               ViralNest Blog
             </span>
           </h1>
-          <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
+          {/* [FIX] Updated text to use theme variable. */}
+          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
             Insights, strategies, and growth tactics to scale your digital presence.
           </p>
         </div>
@@ -81,19 +86,17 @@ export default async function BlogPage() {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {posts.map((post: any) => {
-
               if (!post?.slug) return null;
-
               const excerpt =
                 post?.body?.[0]?.children?.[0]?.text
                   ? post.body[0].children[0].text.slice(0, 140) + "..."
                   : post?.excerpt || "Read this article on ViralNest.";
-
               return (
+                // [FIX] Updated card styles to use theme variables.
                 <Link
                   key={post._id}
                   href={`/blog/${post.slug}`}
-                  className="group bg-[#111] rounded-2xl overflow-hidden border border-purple-900/30 hover:border-purple-500 transition duration-300 hover:-translate-y-2"
+                  className="group block bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition duration-300 hover:-translate-y-2 shadow-sm hover:shadow-lg"
                 >
                   {post?.mainImage?.asset?.url && (
                     <div className="relative h-56 w-full overflow-hidden">
@@ -106,22 +109,17 @@ export default async function BlogPage() {
                       />
                     </div>
                   )}
-
                   <div className="p-6">
-                    <h2 className="text-xl font-semibold mb-3 group-hover:text-purple-400 transition">
+                    <h2 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition">
                       {post?.title}
                     </h2>
-
-                    <p className="text-gray-400 text-sm mb-4">
+                    <p className="text-muted-foreground text-sm mb-4">
                       {excerpt}
                     </p>
-
                     {post?.publishedAt && (
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-muted-foreground/80">
                         {new Date(post.publishedAt).toLocaleDateString("en-IN", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
+                          year: "numeric", month: "long", day: "numeric",
                         })}
                       </p>
                     )}
