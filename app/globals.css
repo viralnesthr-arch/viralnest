@@ -9,7 +9,32 @@
 }
 
 @layer base {
+  /* ===== LIGHT LUXURY THEME (DEFAULT) ===== */
   :root {
+    --background: 40 30% 96%;
+    --foreground: 0 0% 10%;
+    --card: 40 25% 98%;
+    --card-foreground: 0 0% 10%;
+    --popover: 40 25% 98%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 282 68% 38%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 20% 92%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 40 20% 92%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 291 47% 51%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+    --ring: 282 68% 38%;
+    --radius: 0.75rem;
+  }
+
+  /* ===== DARK THEME (ORIGINAL) ===== */
+  .dark {
     --background: 270 10% 2%;
     --foreground: 0 0% 96%;
     --card: 270 8% 5%;
@@ -29,20 +54,7 @@
     --border: 270 6% 16%;
     --input: 270 6% 16%;
     --ring: 282 68% 38%;
-    --chart-1: 282 68% 38%;
-    --chart-2: 291 47% 51%;
-    --chart-3: 270 60% 70%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 300 50% 45%;
     --radius: 0.75rem;
-    --sidebar-background: 270 10% 4%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 282 68% 38%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 6% 10%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 270 6% 16%;
-    --sidebar-ring: 282 68% 38%;
   }
 }
 

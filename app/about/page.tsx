@@ -71,7 +71,7 @@ export default function AboutPage() {
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-primary/20">
               <Image
-                src="/images/about-team.png"
+                src="/images/about-team.webp"
                 alt="Viral Nest Media team collaborating on digital strategy"
                 fill
                 className="object-cover"

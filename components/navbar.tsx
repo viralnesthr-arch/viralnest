@@ -5,6 +5,7 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
+import { ThemeToggle } from "@/components/theme-toggle" // <-- 1. IMPORT THE THEME TOGGLE
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -38,39 +39,48 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((link) => (
+        {/* 2. GROUP ALL RIGHT-SIDE ITEMS FOR PROPER ALIGNMENT */}
+        <div className="flex items-center gap-2">
+          {/* Desktop Nav (unchanged) */}
+          <div className="hidden items-center gap-8 lg:flex">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative group text-sm font-medium transition-colors focus:outline-none ${
+                  pathname === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {link.label}
+                <span className={`absolute bottom-[-4px] left-0 h-0.5 bg-primary transition-all duration-300 ease-out group-hover:w-full ${
+                    pathname === link.href ? "w-full" : "w-0"
+                }`}></span>
+              </Link>
+            ))}
             <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                pathname === link.href ? "text-foreground underline decoration-primary/40" : "text-muted-foreground"
-              }`}
+              href="/contact"
+              className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:scale-105"
             >
-              {link.label}
+              Book Free Call
             </Link>
-          ))}
-          <Link
-            href="/contact"
-            className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            Book Free Call
-          </Link>
-        </div>
+          </div>
 
-        {/* Mobile Toggle */}
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-foreground lg:hidden"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-        >
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+          {/* 3. ADD THE THEME TOGGLE BUTTON HERE */}
+          <ThemeToggle />
+
+          {/* Mobile Toggle (unchanged) */}
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-foreground lg:hidden"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile Nav */}
+      {/* Mobile Nav (unchanged) */}
       {isOpen && (
         <div className="border-t border-border/50 bg-background/95 backdrop-blur-xl px-6 py-6 lg:hidden">
           <div className="flex flex-col gap-4">
@@ -79,7 +89,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className={`text-base font-medium transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                className={`text-base font-medium transition-colors hover:text-foreground focus:outline-none ${
                   pathname === link.href ? "text-foreground" : "text-muted-foreground"
                 }`}
               >
