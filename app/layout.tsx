@@ -128,7 +128,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       {/* ✅ Google Tag Manager (UNTOUCHED) */}
-      <GoogleTagManager gtmId="GTM-WT8GFP5C" />
+      <GoogleTagManager gtmId="GTM-KH35TJTB" />
 
       {/* ✅ Structured Data (Enhanced for SEO) */}
       <Script
