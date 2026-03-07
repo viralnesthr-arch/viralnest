@@ -58,7 +58,7 @@ export default function PrivacyPolicyPage() {
           <p className="text-muted-foreground leading-relaxed">
             If you have any questions about this Privacy Policy, please contact us:
             <br />
-            By email: <a href="mailto:viralnestrh@gmail.com" className="text-primary hover:underline">viralnestrh@gmail.com</a>
+            By email: <a href="mailto:viralnesthr@gmail.com" className="text-primary hover:underline">viralnesthr@gmail.com</a>
           </p>
         </div>
         
