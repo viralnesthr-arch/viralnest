@@ -29,8 +29,7 @@ export default function TermsOfServicePage() {
         <div className="space-y-3">
           <h2 className="text-xl font-semibold text-foreground">1) Who we are</h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            “ViralNest”, “we”, “us”, or “our” refers to Viral Nest Media (update with your
-            legal business name, address, and contact email/phone if different).
+            “ViralNest”, “we”, “us”, or “our” refers to Viral Nest Media.
           </p>
         </div>
 
