@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   title: "Industries | Viral Nest Media - Marketing for Every Sector",
   description:
     "We serve real estate, healthcare, e-commerce, startups, personal brands and gaming industries with tailored digital marketing strategies.",
+
+  alternates: {
+    canonical: "/industries",
+  },
 }
 
 const industries = [

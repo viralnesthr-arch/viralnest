@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "performance marketing agency",
   ],
   alternates: {
-    canonical: "https://yourdomain.com/locations",
+    canonical: "/locations",
   },
 }
 

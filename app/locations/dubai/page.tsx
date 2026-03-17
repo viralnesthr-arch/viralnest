@@ -15,13 +15,13 @@ export const metadata: Metadata = {
     "influencer marketing Dubai",
   ],
   alternates: {
-    canonical: "https://yourdomain.com/locations/dubai",
+    canonical: "/locations/dubai",
   },
   openGraph: {
     title: "Top Digital Marketing Agency in Dubai | Viral Nest Media",
     description:
       "Scale your brand in Dubai with strategic social media marketing, branding and ROI-driven performance campaigns.",
-    url: "https://yourdomain.com/locations/dubai",
+    url: "https://viralnest.co.in/locations/dubai",
     type: "website",
   },
 }

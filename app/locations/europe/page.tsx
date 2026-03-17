@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "multi language marketing agency Europe",
   ],
   alternates: {
-    canonical: "https://yourdomain.com/locations/europe",
+    canonical: "/locations/europe",
   },
 }
 

@@ -7,8 +7,11 @@ export const metadata: Metadata = {
   title: "About Us | Viral Nest Media - Digital Marketing Agency",
   description:
     "Learn about Viral Nest Media, a results-driven digital marketing and branding agency helping businesses across Dubai, Europe and India grow.",
-}
 
+  alternates: {
+    canonical: "/about",
+  },
+}
 const stats = [
   { value: "10+", label: "Years Experience" },
   { value: "200+", label: "Brands Served" },

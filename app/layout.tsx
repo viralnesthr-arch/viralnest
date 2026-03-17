@@ -54,9 +54,6 @@ export const metadata: Metadata = {
   creator: "Viral Nest Media",
   publisher: "Viral Nest Media",
 
-  alternates: {
-    canonical: "https://viralnest.co.in",
-  },
 
   openGraph: {
     title:

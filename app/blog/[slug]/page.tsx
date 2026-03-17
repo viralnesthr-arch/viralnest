@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${post.title} | ViralNest`,
     description,
     alternates: {
-      canonical: `https://viralnest.co.in/blog/${post.slug}`,
+      canonical: `/blog/${post.slug}`,
     },
     openGraph: {
       title: post.title,

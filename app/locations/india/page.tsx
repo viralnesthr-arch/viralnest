@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "YouTube marketing agency India",
   ],
   alternates: {
-    canonical: "https://yourdomain.com/locations/india",
+    canonical: "/locations/india",
   },
 }
 

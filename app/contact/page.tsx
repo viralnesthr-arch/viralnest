@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Contact Us | Viral Nest Media - Book a Free Strategy Call",
   description:
     "Book a free strategy call to discuss your business growth. Contact Viral Nest Media for social media management, branding and digital marketing services.",
+  alternates: {
+    canonical: "/contact",
+  },
 }
 
 const contactInfo = [
