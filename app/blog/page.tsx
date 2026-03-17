@@ -12,12 +12,12 @@ export const metadata: Metadata = {
     "Explore expert insights on digital marketing, SEO, branding, and growth strategies to scale your business with ViralNest Media.",
   alternates: {
     canonical: "/blog",
-  },,
+  },
   openGraph: {
     title: "Blog | ViralNest Media",
     description:
       "Expert digital marketing and branding insights from ViralNest Media.",
-    url: "https://viralnest.co.in/blog",
+    url: "/blog",
     siteName: "ViralNest Media",
     locale: "en_IN",
     type: "website",

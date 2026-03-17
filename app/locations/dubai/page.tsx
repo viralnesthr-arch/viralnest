@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "Top Digital Marketing Agency in Dubai | Viral Nest Media",
     description:
       "Scale your brand in Dubai with strategic social media marketing, branding and ROI-driven performance campaigns.",
-    url: "https://viralnest.co.in/locations/dubai",
+    url: "/locations/dubai",
     type: "website",
   },
 }

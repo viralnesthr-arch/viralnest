@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description:
     "Privacy Policy for ViralNest. Learn how we collect, use, and protect your data when using our digital marketing services.",
   robots: "index, follow",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

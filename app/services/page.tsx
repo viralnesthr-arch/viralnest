@@ -26,14 +26,14 @@ export const metadata: Metadata = {
     "Performance Marketing Services",
   ],
   alternates: {
-    canonical: "https://viralnest.co.in/services",
+    canonical: "/services",
   },
   openGraph: {
     title:
       "Digital Marketing Services | Viral Nest Media",
     description:
       "Comprehensive digital marketing solutions including social media management, branding, influencer campaigns and website development.",
-    url: "https://viralnest.co.in/services",
+    url: "/services",
     siteName: "Viral Nest Media",
     images: [
       {

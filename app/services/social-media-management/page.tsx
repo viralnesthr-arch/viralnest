@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     "Content strategy agency"
   ],
   alternates: {
-    canonical: "https://viralnest.co.in/services/social-media-management",
+    canonical: "/services/social-media-management",
   },
   openGraph: {
     title:
       "Social Media Management Company | Viral Nest Media",
     description:
       "Strategic social media marketing services including content creation, engagement, analytics and growth campaigns.",
-    url: "https://viralnest.co.in/services/social-media-management",
+    url: "/services/social-media-management",
     siteName: "Viral Nest Media",
     type: "website",
   },

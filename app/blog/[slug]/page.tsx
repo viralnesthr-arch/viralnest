@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: post.title,
       description,
       type: "article",
-      url: `https://viralnest.co.in/blog/${post.slug}`,
+      url: `/blog/${post.slug}`,
       images: imageUrl ? [{ url: imageUrl }] : [],
     },
     twitter: {

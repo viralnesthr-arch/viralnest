@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     "Viral Nest Media Portfolio",
   ],
   alternates: {
-    canonical: "https://viralnest.co.in/portfolio",
+    canonical: "/portfolio",
   },
   openGraph: {
     title: "Portfolio & Case Studies | Viral Nest Media",
     description:
       "Discover how Viral Nest Media delivers measurable growth through strategic digital marketing campaigns.",
-    url: "https://viralnest.co.in/portfolio",
+    url: "/portfolio",
     siteName: "Viral Nest Media",
     images: [
       {
