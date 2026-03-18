@@ -1,114 +1,171 @@
-"use client"
-
+import type { Metadata } from "next"
 import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight, MessageCircle } from "lucide-react"
-import { Vortex } from "@/components/ui/vortex"
-import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { ArrowRight, CheckCircle } from "lucide-react"
 
-export function HeroSection() {
-  const { resolvedTheme } = useTheme()
-  const [bgColor, setBgColor] = useState("hsl(40 30% 96%)")
+export const metadata: Metadata = {
+  title:
+    "Influencer Marketing Agency | Creator Campaigns & Brand Growth | Viral Nest Media",
 
-  useEffect(() => {
-    setBgColor(resolvedTheme === "dark" ? "#0a0510" : "hsl(40 30% 96%)")
-  }, [resolvedTheme])
+  description:
+    "Top influencer marketing agency helping brands grow through Instagram, YouTube & TikTok creators. Data-driven campaigns, verified influencers, and measurable ROI.",
 
-  // 🔹 GTM event for WhatsApp conversion
-  const handleWhatsAppClick = () => {
-    if (typeof window !== "undefined") {
-      // Ensure dataLayer exists
-      // @ts-ignore - if you're using TypeScript and get a type error
-      window.dataLayer = window.dataLayer || []
-      // Push a custom event for GTM
-      // Event name: "whatsapp_lead"
-      // Location: "hero"
-      window.dataLayer.push({
-        event: "whatsapp_lead",
-        cta_location: "hero",
-      })
-    }
-  }
+  keywords: [
+    "influencer marketing agency",
+    "influencer marketing services",
+    "instagram influencer marketing",
+    "youtube influencer campaigns",
+    "tiktok influencer marketing",
+    "creator marketing agency",
+    "brand collaborations",
+  ],
 
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical: "/services/influencer-marketing",
+  },
+
+  openGraph: {
+    title: "Influencer Marketing Agency | Viral Nest Media",
+    description:
+      "Grow your brand with high-performing influencer campaigns across Instagram, YouTube & TikTok.",
+    url: "/services/influencer-marketing",
+    siteName: "Viral Nest Media",
+    type: "website",
+    images: [
+      {
+        url: "https://viralnest.co.in/og-image.jpg", // 🔥 create this image
+        width: 1200,
+        height: 630,
+        alt: "Influencer Marketing Agency - Viral Nest Media",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Influencer Marketing Agency | Viral Nest Media",
+    description:
+      "Performance-driven influencer marketing campaigns for global brands.",
+    images: ["https://viralnest.co.in/og-image.jpg"],
+  },
+}
+
+export default function InfluencerMarketingPage() {
   return (
-    <section
-      aria-label="Digital Marketing and Branding Agency Hero Section"
-      className="relative"
-    >
-      <Vortex
-        containerClassName="min-h-screen flex items-center justify-center"
-        className="flex items-center justify-center"
-        particleCount={400}
-        baseHue={285}
-        rangeY={100}
-        baseRadius={1}
-        rangeRadius={1.5}
-        baseSpeed={0.05}
-        rangeSpeed={0.5}
-        backgroundColor={bgColor}
-      >
-        <div className="mx-auto max-w-5xl px-6 py-32 text-center">
+    <div className="pt-24">
 
-          {/* Logo */}
-          <div className="mb-8 flex justify-center">
-            <Image
-              src="/images/viral-nest-logo.png"
-              alt="Viral Nest Digital Marketing and Branding Agency Logo"
-              width={120}
-              height={120}
-              priority
-              className="rounded-full object-contain drop-shadow-[0_0_20px_rgba(123,31,162,0.5)]"
-            />
+      {/* Hero Section */}
+      <section className="py-24 text-center max-w-5xl mx-auto px-6">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+          Influencer Marketing Agency for Modern Brands
+        </h1>
+
+        <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+          We help brands scale using strategic influencer marketing across Instagram,
+          YouTube, and TikTok. Our campaigns are data-driven, performance-focused,
+          and built for measurable ROI.
+        </p>
+
+        <Link
+          href="/contact"
+          className="mt-10 inline-flex items-center gap-2 bg-primary px-8 py-4 rounded-full text-white font-medium hover:opacity-90 transition"
+        >
+          Launch Your Campaign <ArrowRight className="h-4 w-4" />
+        </Link>
+      </section>
+
+      {/* Services Section */}
+      <section className="bg-muted/30 py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-semibold text-center">
+            Our Influencer Marketing Services
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-10 mt-12">
+            {[
+              {
+                title: "Influencer Research & Vetting",
+                desc: "We identify and verify high-quality influencers using audience insights, engagement metrics, and authenticity checks.",
+              },
+              {
+                title: "Campaign Strategy & Planning",
+                desc: "Custom influencer strategies aligned with your brand goals, audience targeting, and campaign KPIs.",
+              },
+              {
+                title: "Outreach & Negotiation",
+                desc: "We handle influencer outreach, communication, pricing negotiation, and campaign execution.",
+              },
+              {
+                title: "Performance Tracking & ROI",
+                desc: "Detailed analytics on reach, engagement, conversions, and ROI to measure campaign success.",
+              },
+            ].map((service, index) => (
+              <div key={index} className="p-6 rounded-xl bg-background shadow-sm">
+                <h3 className="text-xl font-semibold">{service.title}</h3>
+                <p className="mt-4 text-muted-foreground">{service.desc}</p>
+              </div>
+            ))}
           </div>
-
-          {/* Services Category Line */}
-          <p className="mb-6 text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-            Digital Marketing · Branding · Social Media · Performance Marketing
-          </p>
-
-          {/* H1 */}
-          <h1 className="font-display text-4xl font-bold leading-[1.2] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl text-balance">
-            Digital Marketing & Branding Agency in{" "}
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Dubai, Europe & India
-            </span>
-          </h1>
-
-          {/* Description */}
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Viral Nest is a full-service digital marketing and branding agency
-            helping businesses build strong brand identities, generate quality
-            leads, and scale globally through strategic marketing, creative
-            campaigns, social media management, and performance-driven growth solutions.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              href="/contact"
-              aria-label="Book a free digital marketing consultation"
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-8 py-4 text-base font-semibold text-primary-foreground shadow-xl shadow-primary/20 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/30 hover:scale-105"
-            >
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              Book Free Strategy Call
-            </Link>
-
-            <a
-              href="https://wa.me/918802684249"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Chat with Viral Nest on WhatsApp"
-              className="group inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/30 px-8 py-4 text-base font-semibold text-foreground backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-card/50 hover:scale-105"
-              onClick={handleWhatsAppClick} // 🔹 Added for conversion tracking
-            >
-              <MessageCircle className="h-4 w-4" />
-              WhatsApp Now
-            </a>
-          </div>
-
         </div>
-      </Vortex>
-    </section>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-20 max-w-5xl mx-auto px-6">
+        <h2 className="text-3xl font-semibold text-center">
+          Why Choose Viral Nest Media?
+        </h2>
+
+        <ul className="mt-12 space-y-6">
+          {[
+            "Access to verified global influencers",
+            "Data-driven influencer selection",
+            "ROI-focused campaign execution",
+            "Transparent reporting",
+            "Long-term brand growth strategies",
+          ].map((item, index) => (
+            <li key={index} className="flex items-start gap-4">
+              <CheckCircle className="text-primary mt-1" size={20} />
+              <span className="text-muted-foreground">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Process Section */}
+      <section className="py-20 border-t">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-semibold mb-8">
+            Our Influencer Marketing Process
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">
+            We research your brand, identify the right influencers, execute campaigns,
+            and continuously optimize performance using real-time data insights.
+          </p>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="bg-primary text-white py-20 text-center px-6">
+        <h2 className="text-3xl font-semibold">
+          Ready to Grow with Influencer Marketing?
+        </h2>
+
+        <p className="mt-4 max-w-2xl mx-auto opacity-90">
+          Let’s create high-impact influencer campaigns that deliver real business results.
+        </p>
+
+        <Link
+          href="/contact"
+          className="mt-8 inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-full font-medium hover:opacity-90 transition"
+        >
+          Get Free Strategy <ArrowRight className="h-4 w-4" />
+        </Link>
+      </section>
+
+    </div>
   )
 }
