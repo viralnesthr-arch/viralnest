@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Brand collaboration agency"
   ],
   alternates: {
-    canonical: "/influencer-marketing",
+    canonical: "/services/influencer-marketing",
   },
   openGraph: {
     title:
