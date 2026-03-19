@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer"
 import { GoogleTagManager } from "@next/third-parties/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
+import WhatsAppWidget from "@/components/whatsapp-widget"
 
 import "./globals.css"
 
@@ -176,6 +177,7 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
           <Footer />
+          <WhatsAppWidget />
         </ThemeProvider>
       </body>
     </html>
