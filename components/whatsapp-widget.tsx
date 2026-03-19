@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function WhatsAppWidget() {
   const [open, setOpen] = useState(false);
 
-  // Auto open logic (Desktop only after 5 seconds)
+  // Auto open after 5 seconds on desktop
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth > 768) {
       const timer = setTimeout(() => setOpen(true), 5000);
@@ -15,14 +15,10 @@ export default function WhatsAppWidget() {
   }, []);
 
   const phoneNumber = "918802684249";
-  
-  const quickReplies = [
-    { text: "I want to grow my business ", label: "Grow Business" },
-  ];
 
-  const handleChat = (message?: string) => {
-    const finalMsg = message || "Hi ViralNest, I want to grow my business ";
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(finalMsg)}`;
+  const handleChat = () => {
+    const message = "Hi ViralNest, I want to grow my business ";
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
     setOpen(false);
   };
@@ -30,7 +26,7 @@ export default function WhatsAppWidget() {
   return (
     <div className="fixed bottom-6 left-6 z-[9999] flex flex-col items-start gap-4">
       
-      {/* --- PREMIUM POPUP CARD --- */}
+      {/* Premium Popup */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -44,7 +40,7 @@ export default function WhatsAppWidget() {
               backdropFilter: "blur(12px)",
             }}
           >
-            {/* Header with Brand Gradient */}
+            {/* Header */}
             <div 
               className="p-4 relative overflow-hidden flex justify-between items-center"
               style={{
@@ -79,9 +75,9 @@ export default function WhatsAppWidget() {
               </button>
             </div>
 
-            {/* Body Content */}
+            {/* Body */}
             <div className="p-5">
-              <div className="mb-4">
+              <div className="mb-6">
                 <p className="text-gray-800 font-medium text-sm mb-1">
                   Hi there! 👋 Ready to scale up?
                 </p>
@@ -90,25 +86,9 @@ export default function WhatsAppWidget() {
                 </p>
               </div>
 
-              {/* Quick Reply Button */}
-              <div className="space-y-2 mb-4">
-                {quickReplies.map((item, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => handleChat(item.text)}
-                    className="w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200 border border-gray-100 hover:border-purple-200 hover:bg-purple-50 hover:text-purple-700 group flex justify-between items-center"
-                  >
-                    <span>{item.label}</span>
-                    <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                ))}
-              </div>
-
-              {/* Main CTA Button */}
+              {/* Main Button */}
               <button
-                onClick={() => handleChat()}
+                onClick={handleChat}
                 className="w-full py-3 rounded-xl text-white font-semibold text-sm shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95"
                 style={{
                   background: "linear-gradient(135deg, #7c3aed, #6d28d9)",
@@ -117,7 +97,7 @@ export default function WhatsAppWidget() {
                 Start Conversation on WhatsApp
               </button>
               
-              <p className="text-center text-[10px] text-gray-400 mt-3 flex items-center justify-center gap-1">
+              <p className="text-center text-[10px] text-gray-400 mt-4 flex items-center justify-center gap-1">
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                 </svg>
@@ -128,7 +108,7 @@ export default function WhatsAppWidget() {
         )}
       </AnimatePresence>
 
-      {/* --- FLOATING BUTTON --- */}
+      {/* Floating Button */}
       <motion.button
         onClick={() => setOpen(!open)}
         whileHover={{ scale: 1.1 }}
