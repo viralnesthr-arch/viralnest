@@ -17,6 +17,14 @@ export default function WhatsAppWidget() {
   const phoneNumber = "918802684249";
 
   const handleChat = () => {
+    // 🔥 GTM Trigger added here
+    if (typeof window !== "undefined") {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "whatsapp_lead", // Ye event aapke GTM ke trigger se match karega
+      });
+    }
+
     const message = "Hi ViralNest, I want to grow my business ";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
