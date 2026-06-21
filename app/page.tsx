@@ -1,6 +1,4 @@
 import type { Metadata } from "next"
-import Script from "next/script"
-
 import { HeroSection } from "@/components/home/hero-section"
 import { ServicesOverview } from "@/components/home/services-overview"
 import { IndustriesSection } from "@/components/home/industries-section"
@@ -9,10 +7,8 @@ import { CTASection } from "@/components/home/cta-section"
 import { TrustBanner } from "@/components/home/trust-banner"
 
 export const metadata: Metadata = {
-  title:
-    "Digital Marketing Agency in Dubai | Social Media & Branding Experts | Viral Nest Media",
-  description:
-    "Viral Nest Media is a leading digital marketing agency in Dubai helping brands grow through social media marketing, performance ads, branding, and content strategy.",
+  title: "Digital Marketing & Branding Agency in Dubai, Europe & India | Viral Nest Media",
+  description: "Viral Nest Media is a full-service digital marketing and branding agency helping businesses build strong brand identities and scale globally.",
   alternates: {
     canonical: "https://viralnest.co.in",
   },
@@ -21,18 +17,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <Script
-        id="homepage-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "Viral Nest Media",
-            url: "https://viralnest.co.in",
-          }),
-        }}
-      />
       <HeroSection />
       <TrustBanner />
       <ServicesOverview />
