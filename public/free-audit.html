@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viral Nest Media — Free Marketing Audit for Local Businesses</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  :root{
+    --ink:#1C2340; --ink-soft:#3A4266;
+    --paper:#FBF7EF; --paper-2:#F2ECDD;
+    --brass:#B8863F; --brass-deep:#8E661F;
+    --green:#4F8F6E;
+    --line:rgba(28,35,64,0.12);
+    --radius:3px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+  a{color:inherit;}
+
+  /* nav */
+  nav{border-bottom:1px solid var(--line);padding:18px 0;}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center;max-width:920px;margin:0 auto;padding:0 24px;}
+  .logo{font-family:'Fraunces',serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;}
+  .logo span{color:var(--brass-deep);}
+  .nav-cta{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.04em;background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:20px;text-decoration:none;}
+
+  /* hero */
+  .hero{padding:64px 0 40px;text-align:center;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--brass-deep);margin-bottom:18px;}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(30px,5.2vw,50px);line-height:1.1;margin:0 0 20px;letter-spacing:-0.015em;max-width:18ch;margin-left:auto;margin-right:auto;}
+  .hero-sub{font-size:17px;color:var(--ink-soft);max-width:52ch;margin:0 auto 32px;}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{background:var(--green);color:#fff;font-weight:600;font-size:15px;padding:16px 28px;border-radius:var(--radius);text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(79,143,110,0.28);}
+  .btn-secondary{background:transparent;border:1px solid var(--line);color:var(--ink);font-size:15px;padding:16px 24px;border-radius:var(--radius);text-decoration:none;}
+  .microcopy{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin-top:14px;letter-spacing:0.02em;}
+
+  /* pains */
+  .section{padding:56px 0;border-top:1px solid var(--line);}
+  .section-title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(24px,3.4vw,32px);margin:0 0 32px;text-align:center;}
+  .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:700px){.pains{grid-template-columns:1fr;}}
+  .pain-card{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
+  .pain-card .mark{font-family:'Fraunces',serif;font-size:28px;color:var(--brass);margin-bottom:10px;}
+  .pain-card p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+
+  /* audit */
+  .audit-box{background:var(--ink);color:var(--paper);border-radius:8px;padding:44px 36px;}
+  .audit-box .section-title{color:var(--paper);}
+  .audit-list{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:14px;max-width:480px;margin-left:auto;margin-right:auto;}
+  .audit-list li{display:flex;gap:12px;font-size:15px;align-items:flex-start;}
+  .audit-list .check{color:var(--brass);font-weight:700;flex-shrink:0;}
+  .audit-cta{text-align:center;}
+
+  /* how it works */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:step;}
+  @media(max-width:700px){.steps{grid-template-columns:1fr;}}
+  .step{text-align:center;}
+  .step-num{font-family:'Fraunces',serif;font-size:36px;color:var(--brass);margin-bottom:10px;}
+  .step h3{font-family:'Fraunces',serif;font-size:17px;margin:0 0 8px;}
+  .step p{font-size:14px;color:var(--ink-soft);margin:0;}
+
+  /* services */
+  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media(max-width:700px){.services{grid-template-columns:1fr;}}
+  .service{border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:#fff;}
+  .service h3{font-family:'Fraunces',serif;font-size:17px;margin:0 0 8px;}
+  .service p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+
+  /* testimonials */
+  .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:700px){.testimonials{grid-template-columns:1fr;}}
+  .testi{border:1px dashed var(--brass);border-radius:var(--radius);padding:22px;background:var(--paper-2);}
+  .testi .quote{font-family:'Fraunces',serif;font-style:italic;font-size:15.5px;color:var(--ink);margin:0 0 14px;}
+  .testi .who{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--brass-deep);text-transform:uppercase;letter-spacing:0.04em;}
+
+  /* faq */
+  .faq{max-width:640px;margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--line);padding:18px 0;}
+  .faq-item h4{font-family:'Fraunces',serif;font-size:16px;margin:0 0 8px;}
+  .faq-item p{font-size:14.5px;color:var(--ink-soft);margin:0;}
+
+  /* form */
+  .form-section{background:var(--paper-2);border-radius:8px;padding:40px 32px;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;max-width:520px;margin:0 auto;}
+  @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+  label.f-label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
+  input[type=text],input[type=tel],select{
+    width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:var(--radius);
+    background:#fff;color:var(--ink);font-size:14.5px;font-family:'Inter',sans-serif;margin-bottom:16px;
+  }
+  input:focus,select:focus{outline:2px solid var(--brass);outline-offset:1px;}
+  .form-submit{max-width:520px;margin:0 auto;text-align:center;}
+
+  footer{padding:36px 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);border-top:1px solid var(--line);}
+
+  .sticky-cta{position:fixed;bottom:0;left:0;right:0;background:var(--ink);padding:12px 16px;display:none;justify-content:center;z-index:50;}
+  .sticky-cta a{background:var(--green);color:#fff;font-weight:600;font-size:14px;padding:12px 20px;border-radius:var(--radius);text-decoration:none;width:100%;text-align:center;display:block;max-width:400px;}
+  @media(max-width:700px){.sticky-cta{display:flex;} body{padding-bottom:64px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Viral <span>Nest</span> Media</div>
+    <a class="nav-cta" href="#audit-form">Get Free Audit</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Free Marketing Audit — Restaurants &amp; Jewellery Brands, Ghaziabad &amp; NCR</div>
+    <h1>Stop losing customers to competitors with weaker service but stronger online presence.</h1>
+    <p class="hero-sub">We help established restaurants and jewellery brands fix the exact gaps costing them customers — starting with a free, no-obligation audit of your Google and Instagram presence.</p>
+    <div class="cta-row">
+      <a class="btn-primary" href="#audit-form">Get My Free Audit →</a>
+      <a class="btn-secondary" href="#how-it-works">See how it works</a>
+    </div>
+    <p class="microcopy">No cost. No contract. Takes us 24 hours, takes you 2 minutes.</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Sound familiar?</h2>
+    <div class="pains">
+      <div class="pain-card">
+        <div class="mark">01</div>
+        <p>Customers find your competitor on Google before they find you — even if your service is better.</p>
+      </div>
+      <div class="pain-card">
+        <div class="mark">02</div>
+        <p>Your Instagram or Facebook page has been quiet for weeks, so new customers assume you're closed or don't care.</p>
+      </div>
+      <div class="pain-card">
+        <div class="mark">03</div>
+        <p>You're relying only on word-of-mouth, and it's not bringing in enough new faces every month.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="audit-box">
+      <h2 class="section-title">What's in your free audit</h2>
+      <ul class="audit-list">
+        <li><span class="check">✓</span> A check of your Google Business Profile — reviews, photos, and how you rank against nearby competitors</li>
+        <li><span class="check">✓</span> A look at your Instagram/Facebook activity and what it signals to new customers</li>
+        <li><span class="check">✓</span> One clear, specific thing that's likely costing you customers right now — no generic advice</li>
+      </ul>
+      <div class="audit-cta">
+        <a class="btn-primary" href="#audit-form">Send Me My Free Audit →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <h2 class="section-title">How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Tell us about your business</h3>
+        <p>Fill the short form below or message us directly on WhatsApp.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>We send your audit</h3>
+        <p>Within 24 hours, you get a clear, honest breakdown — nothing you need to act on yet.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>You decide what's next</h3>
+        <p>Like what you see? We'll talk about a plan. If not, keep the audit — no pressure either way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">What we actually do</h2>
+    <div class="services">
+      <div class="service">
+        <h3>Google &amp; Local Visibility</h3>
+        <p>Get your business showing up first when nearby customers search — profile, reviews, and photos done right.</p>
+      </div>
+      <div class="service">
+        <h3>Social Media Management</h3>
+        <p>Consistent, on-brand posting so your page looks active and trustworthy the moment someone checks it.</p>
+      </div>
+      <div class="service">
+        <h3>Paid Ads (When It Makes Sense)</h3>
+        <p>Tightly targeted, properly tracked campaigns — only once your profile and page are ready to convert clicks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Common questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h4>Do I have to sign a long contract?</h4>
+        <p>No. We start month-to-month so you can see results before committing further.</p>
+      </div>
+      <div class="faq-item">
+        <h4>What if I don't have a website yet?</h4>
+        <p>That's completely fine — most of our clients start with just Google Business Profile and Instagram. A website comes later if it makes sense.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Is this only for big businesses?</h4>
+        <p>No — we specifically work with single-location local businesses like restaurants, salons, and shops. That's our focus, not an afterthought.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Does the free audit really cost nothing?</h4>
+        <p>Yes. You'll get it whether or not you decide to work with us afterward.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="audit-form">
+    <h2 class="section-title">Get your free audit</h2>
+    <div class="form-section">
+      <div class="form-grid">
+        <div>
+          <label class="f-label">Your name</label>
+          <input type="text" id="fName" placeholder="Full name">
+        </div>
+        <div>
+          <label class="f-label">Business name</label>
+          <input type="text" id="fBiz" placeholder="Business name">
+        </div>
+        <div>
+          <label class="f-label">Business type</label>
+          <select id="fType">
+            <option value="Restaurant/Cafe">Restaurant / Cafe</option>
+            <option value="Jewellery Designer">Jewellery Designer</option>
+            <option value="Jewellery Store/Outlet">Jewellery Store / Outlet</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="f-label">City / area</label>
+          <input type="text" id="fCity" placeholder="e.g. Vaishali, Ghaziabad">
+        </div>
+      </div>
+      <div class="form-grid" style="margin-top:0;">
+        <div style="grid-column:1 / -1;">
+          <label class="f-label">WhatsApp number</label>
+          <input type="tel" id="fPhone" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+      <div class="form-submit">
+        <a class="btn-primary" href="javascript:void(0)" onclick="sendToWhatsApp()">Send My Details →</a>
+        <p class="microcopy">This opens WhatsApp with your details pre-filled — nothing is stored anywhere else.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Viral Nest Media &middot; Ghaziabad &amp; NCR &middot; <a href="https://viralnest.co.in/" target="_blank">viralnest.co.in</a>
+</footer>
+
+<div class="sticky-cta">
+  <a href="#audit-form">Get My Free Audit →</a>
+</div>
+
+<script>
+// IMPORTANT: replace with your real WhatsApp business number, country code, no + or spaces, e.g. 919876543210
+const AGENCY_WHATSAPP_NUMBER = "918802684249";
+
+function sendToWhatsApp(){
+  const name = document.getElementById('fName').value.trim();
+  const biz = document.getElementById('fBiz').value.trim();
+  const type = document.getElementById('fType').value;
+  const city = document.getElementById('fCity').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+
+  if(!name || !biz || !phone){
+    alert('Please fill in your name, business name, and WhatsApp number.');
+    return;
+  }
+
+  const message =
+`Hi Viral Nest Media, I'd like my free marketing audit.
+
+Name: ${name}
+Business: ${biz}
+Type: ${type}
+City: ${city}
+My WhatsApp: ${phone}`;
+
+  const url = `https://wa.me/${AGENCY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+}
+</script>
+
+</body>
+</html>
