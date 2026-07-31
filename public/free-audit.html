@@ -220,6 +220,31 @@
   <section class="section" id="audit-form">
     <h2 class="section-title">Get your free audit</h2>
     <div class="form-section">
+      <div style="margin-bottom:20px;">
+        <label class="f-label">I'm here to:</label>
+        <select id="fIntent" onchange="checkIntent()">
+          <option value="">Select one</option>
+          <option value="business">Grow my restaurant / jewellery business</option>
+          <option value="job">Look for a job / internship</option>
+        </select>
+      </div>
+      <div id="budgetQuestion" class="hidden" style="margin-bottom:20px;">
+        <label class="f-label">Monthly budget you can invest in marketing</label>
+        <select id="fBudget" onchange="checkBudget()">
+          <option value="">Select one</option>
+          <option value="low">Under ₹30,000</option>
+          <option value="mid">₹30,000 – ₹75,000</option>
+          <option value="high">₹75,000 – ₹1,50,000</option>
+          <option value="veryhigh">Above ₹1,50,000</option>
+        </select>
+      </div>
+      <div id="budgetTooLowMsg" class="hidden" style="background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
+        <p style="margin:0;color:var(--ink-soft);font-size:14.5px;">Our work is built for businesses investing ₹30,000/month or more, so we can actually focus on delivering real results rather than spreading thin. If your budget grows, we'd genuinely love to talk then — feel free to check back anytime.</p>
+      </div>
+      <div id="jobSeekerMsg" class="hidden" style="background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
+        <p style="margin:0;color:var(--ink-soft);font-size:14.5px;">This page is only for business owners requesting a free marketing audit — we're not hiring through here. If you're looking for work with us, please check our LinkedIn page or careers listing separately.</p>
+      </div>
+      <div id="businessFormFields" class="hidden">
       <div class="form-grid">
         <div>
           <label class="f-label">Your name</label>
@@ -253,6 +278,7 @@
         <a class="btn-primary" href="javascript:void(0)" onclick="sendToWhatsApp()">Send My Details →</a>
         <p class="microcopy">This opens WhatsApp with your details pre-filled — nothing is stored anywhere else.</p>
       </div>
+      </div>
     </div>
   </section>
 
@@ -270,12 +296,51 @@
 // IMPORTANT: replace with your real WhatsApp business number, country code, no + or spaces, e.g. 919876543210
 const AGENCY_WHATSAPP_NUMBER = "918802684249";
 
+function checkIntent(){
+  const intent = document.getElementById('fIntent').value;
+  const jobMsg = document.getElementById('jobSeekerMsg');
+  const budgetQ = document.getElementById('budgetQuestion');
+  const budgetLowMsg = document.getElementById('budgetTooLowMsg');
+  const bizFields = document.getElementById('businessFormFields');
+
+  budgetQ.classList.add('hidden');
+  budgetLowMsg.classList.add('hidden');
+  bizFields.classList.add('hidden');
+  jobMsg.classList.add('hidden');
+  document.getElementById('fBudget').value = '';
+
+  if(intent === 'job'){
+    jobMsg.classList.remove('hidden');
+  } else if(intent === 'business'){
+    budgetQ.classList.remove('hidden');
+  }
+}
+
+function checkBudget(){
+  const budget = document.getElementById('fBudget').value;
+  const budgetLowMsg = document.getElementById('budgetTooLowMsg');
+  const bizFields = document.getElementById('businessFormFields');
+
+  if(budget === 'low'){
+    budgetLowMsg.classList.remove('hidden');
+    bizFields.classList.add('hidden');
+  } else if(budget){
+    budgetLowMsg.classList.add('hidden');
+    bizFields.classList.remove('hidden');
+  } else {
+    budgetLowMsg.classList.add('hidden');
+    bizFields.classList.add('hidden');
+  }
+}
+
 function sendToWhatsApp(){
   const name = document.getElementById('fName').value.trim();
   const biz = document.getElementById('fBiz').value.trim();
   const type = document.getElementById('fType').value;
   const city = document.getElementById('fCity').value.trim();
   const phone = document.getElementById('fPhone').value.trim();
+  const budgetLabels = {low:'Under ₹30,000', mid:'₹30,000–₹75,000', high:'₹75,000–₹1,50,000', veryhigh:'Above ₹1,50,000'};
+  const budget = budgetLabels[document.getElementById('fBudget').value] || 'Not specified';
 
   if(!name || !biz || !phone){
     alert('Please fill in your name, business name, and WhatsApp number.');
@@ -289,6 +354,7 @@ Name: ${name}
 Business: ${biz}
 Type: ${type}
 City: ${city}
+Monthly budget: ${budget}
 My WhatsApp: ${phone}`;
 
   const url = `https://wa.me/${AGENCY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
