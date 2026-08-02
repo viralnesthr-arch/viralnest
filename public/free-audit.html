@@ -296,44 +296,61 @@
 // IMPORTANT: replace with your real WhatsApp business number, country code, no + or spaces, e.g. 919876543210
 const AGENCY_WHATSAPP_NUMBER = "918802684249";
 
+function hideEl(id){ const el = document.getElementById(id); el.classList.add('hidden'); el.style.display = 'none'; }
+function showEl(id, displayType){ const el = document.getElementById(id); el.classList.remove('hidden'); el.style.display = displayType || 'block'; }
+
 function checkIntent(){
   const intent = document.getElementById('fIntent').value;
-  const jobMsg = document.getElementById('jobSeekerMsg');
-  const budgetQ = document.getElementById('budgetQuestion');
-  const budgetLowMsg = document.getElementById('budgetTooLowMsg');
-  const bizFields = document.getElementById('businessFormFields');
 
-  budgetQ.classList.add('hidden');
-  budgetLowMsg.classList.add('hidden');
-  bizFields.classList.add('hidden');
-  jobMsg.classList.add('hidden');
+  hideEl('budgetQuestion');
+  hideEl('budgetTooLowMsg');
+  hideEl('businessFormFields');
+  hideEl('jobSeekerMsg');
   document.getElementById('fBudget').value = '';
 
   if(intent === 'job'){
-    jobMsg.classList.remove('hidden');
+    showEl('jobSeekerMsg');
   } else if(intent === 'business'){
-    budgetQ.classList.remove('hidden');
+    showEl('budgetQuestion');
   }
 }
 
 function checkBudget(){
   const budget = document.getElementById('fBudget').value;
-  const budgetLowMsg = document.getElementById('budgetTooLowMsg');
-  const bizFields = document.getElementById('businessFormFields');
 
   if(budget === 'low'){
-    budgetLowMsg.classList.remove('hidden');
-    bizFields.classList.add('hidden');
+    showEl('budgetTooLowMsg');
+    hideEl('businessFormFields');
   } else if(budget){
-    budgetLowMsg.classList.add('hidden');
-    bizFields.classList.remove('hidden');
+    hideEl('budgetTooLowMsg');
+    showEl('businessFormFields');
   } else {
-    budgetLowMsg.classList.add('hidden');
-    bizFields.classList.add('hidden');
+    hideEl('budgetTooLowMsg');
+    hideEl('businessFormFields');
   }
 }
 
+// Force the correct initial state the moment the page loads, regardless of caching
+document.addEventListener('DOMContentLoaded', function(){
+  hideEl('budgetQuestion');
+  hideEl('budgetTooLowMsg');
+  hideEl('businessFormFields');
+  hideEl('jobSeekerMsg');
+});
+
 function sendToWhatsApp(){
+  const intent = document.getElementById('fIntent').value;
+  const budget = document.getElementById('fBudget').value;
+
+  if(intent !== 'business'){
+    alert('This form is only for business owners requesting a marketing audit.');
+    return;
+  }
+  if(budget === 'low' || !budget){
+    alert('Our services currently start at ₹30,000/month. Please select a matching budget range to continue.');
+    return;
+  }
+
   const name = document.getElementById('fName').value.trim();
   const biz = document.getElementById('fBiz').value.trim();
   const type = document.getElementById('fType').value;
