@@ -357,7 +357,7 @@ function sendToWhatsApp(){
   const city = document.getElementById('fCity').value.trim();
   const phone = document.getElementById('fPhone').value.trim();
   const budgetLabels = {low:'Under ₹30,000', mid:'₹30,000–₹75,000', high:'₹75,000–₹1,50,000', veryhigh:'Above ₹1,50,000'};
-  const budget = budgetLabels[document.getElementById('fBudget').value] || 'Not specified';
+  const budgetLabel = budgetLabels[budget] || 'Not specified';
 
   if(!name || !biz || !phone){
     alert('Please fill in your name, business name, and WhatsApp number.');
@@ -371,7 +371,7 @@ Name: ${name}
 Business: ${biz}
 Type: ${type}
 City: ${city}
-Monthly budget: ${budget}
+Monthly budget: ${budgetLabel}
 My WhatsApp: ${phone}`;
 
   const url = `https://wa.me/${AGENCY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
