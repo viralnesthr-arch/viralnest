@@ -8,7 +8,6 @@ import { GoogleTagManager } from "@next/third-parties/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import WhatsAppWidget from "@/components/whatsapp-widget"
-
 import "./globals.css"
 
 const jakartaSans = Plus_Jakarta_Sans({
@@ -16,7 +15,6 @@ const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   display: "swap",
 })
-
 const fontDisplay = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-display",
@@ -50,16 +48,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           })(window,document,'script','dataLayer','GTM-KH35TJTB');`,
         }}
       />
-      <body <script
-        id="gtm-script"
-        dangerouslySetInnerHTML={{
-          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-KH35TJTB');`,
-        }}
-      />
       <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=AW-17953119937"
@@ -73,3 +61,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', 'AW-17953119937');`,
         }}
       />
+      <body className={cn("font-sans antialiased", jakartaSans.variable, fontDisplay.variable)} suppressHydrationWarning>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppWidget />
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
