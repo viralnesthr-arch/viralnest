@@ -50,14 +50,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           })(window,document,'script','dataLayer','GTM-KH35TJTB');`,
         }}
       />
-      <body className={cn("font-sans antialiased", jakartaSans.variable, fontDisplay.variable)} suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <WhatsAppWidget />
-        </ThemeProvider>
-      </body>
-    </html>
-  )
-}
+      <body <script
+        id="gtm-script"
+        dangerouslySetInnerHTML={{
+          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-KH35TJTB');`,
+        }}
+      />
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=AW-17953119937"
+      />
+      <script
+        id="google-ads-gtag"
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-17953119937');`,
+        }}
+      />
